@@ -1,223 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Avni Publication</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
-      crossorigin="anonymous"
-    />
-    <style>
-      .dropbtn {
-        background-color: #4caf50;
-        color: white;
-        padding: 16px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-      }
+<head>
+  <meta charset="UTF-8">
+  <title>Order Tracking</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 40px;
+    }
 
-      .dropbtn:hover,
-      .dropbtn:focus {
-        background-color: #3e8e41;
-      }
+    .card-timeline {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 30px 20px;
+      max-width: 800px;
+      margin: auto;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
 
-      .dropdown {
-        position: relative;
-        display: inline-block;
-      }
+    .bs4-order-tracking {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin-bottom: 30px;
+      padding: 0;
+      counter-reset: step;
+    }
 
-      .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 400px;
-        overflow: auto;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-      }
+    .bs4-order-tracking li {
+      list-style: none;
+      text-align: center;
+      width: 100%;
+      position: relative;
+      color: #878788;
+      font-size: 13px;
+    }
 
-      .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-      }
+    .bs4-order-tracking li::before {
+      counter-increment: step;
+      content: counter(step);
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      display: block;
+      background: #878788;
+      color: #fff;
+      border-radius: 50%;
+      margin: 0 auto 10px auto;
+      z-index: 1;
+      position: relative;
+    }
 
-      .dropdown-content a:hover {
-        background-color: #f1f1f1;
-      }
+    .bs4-order-tracking li::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: #878788;
+      top: 15px;
+      left: -50%;
+      z-index: 0;
+    }
 
-      .show {
-        display: block;
-      }
+    .bs4-order-tracking li:first-child::after {
+      content: none;
+    }
 
-      .bs4-order-tracking {
-        margin-bottom: 30px;
-        overflow: hidden;
-        color: #878788;
-        padding-left: 0px;
-        margin-top: 30px;
-      }
-      .bs4-order-tracking li {
-        list-style-type: none;
-        font-size: 13px;
-        width: 25%;
-        float: left;
-        position: relative;
-        font-weight: 400;
-        color: #878788;
-        text-align: center;
-      }
-      .bs4-order-tracking li:first-child:before {
-        margin-left: 15px !important;
-        padding-left: 11px !important;
-        text-align: left !important;
-      }
-      .bs4-order-tracking li:last-child:before {
-        margin-right: 5px !important;
-        padding-right: 11px !important;
-        text-align: right !important;
-      }
-      .bs4-order-tracking li > div {
-        color: #fff;
-        width: 29px;
-        text-align: center;
-        line-height: 29px;
-        display: block;
-        font-size: 12px;
-        background: #878788;
-        border-radius: 50%;
-        margin: auto;
-      }
-      .bs4-order-tracking li:after {
-        content: "";
-        width: 150%;
-        height: 2px;
-        background: #878788;
-        position: absolute;
-        left: 0%;
-        right: 0%;
-        top: 15px;
-        z-index: -1;
-      }
-      .bs4-order-tracking li:first-child:after {
-        left: 50%;
-      }
-      .bs4-order-tracking li:last-child:after {
-        left: 0% !important;
-        width: 0% !important;
-      }
-      .bs4-order-tracking li.active {
-        font-weight: bold;
-        color: #dc3545;
-      }
-      .bs4-order-tracking li.active > div {
-        background: #dc3545;
-      }
-      .bs4-order-tracking li.active:after {
-        background: #dc3545;
-      }
-      .card-timeline {
-        background-color: #fff;
-        z-index: 0;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h2>welcome to avni Publication</h2>
-      <div class="container">
-        <button type="button" class="btn btn-primary" onclick="createOrder1()">
-          Create Order
-        </button>
-        <button type="button" class="btn btn-primary" onclick="createOrder()">
-          Genrate Id
-        </button>
-      </div>
-      <p id="par"></p>
-    </div>
+    .bs4-order-tracking li.active::before {
+      background: #dc3545;
+    }
 
-    <div class="card card-timeline px-2 border-none">
-      <ul class="bs4-order-tracking">
-        <li class="step active">
-          <div><i class="fas fa-user"></i></div>
-          Order Placed
-        </li>
-        <li class="step active">
-          <div><i class="fas fa-bread-slice"></i></div>
-          In transit
-        </li>
-        <li class="step">
-          <div><i class="fas fa-truck"></i></div>
-          Out for delivery
-        </li>
-        <li class="step">
-          <div><i class="fas fa-birthday-cake"></i></div>
-          Delivered
-        </li>
-      </ul>
-      <h5 class="text-center">
-        <b>In transit</b>. The order has been shipped!
-      </h5>
-    </div>
+    .bs4-order-tracking li.active::after {
+      background: #dc3545;
+    }
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.min.js"
-      integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      function createOrder() {
-        // Logic to create an order
-        document.getElementById("par").innerHTML =
-          "order genrte " + "<h2>hello</h2>";
+    .bs4-order-tracking li i {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+
+    .order-status {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .status-select {
+      display: flex;
+      justify-content: center;
+      margin: 20px auto;
+      max-width: 300px;
+    }
+
+    select {
+      padding: 10px;
+      font-size: 14px;
+      width: 100%;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 14px;
+      width: 200px;
+    }
+
+    button {
+      padding: 10px 15px;
+      font-size: 14px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .name {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <form onsubmit="submitForm(event)">
+    <input type="text" id="name" placeholder="Enter name" required><br><br>
+    <input type="number" id="orderId" placeholder="Enter Order ID" required><br><br>
+    <input type="text" id="paymentt" placeholder="enter payment" required><br><br>
+    <input type="text" id="address" placeholder="Enter address" required><br><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <div class="status-select" style="display: none;" id="statusContainer">
+    <select id="statusSelect">
+      <option value="0">Order Placed</option>
+      <option value="1">Waiting for Payment</option>
+      <option value="2">Out for Delivery</option>
+      <option value="3">Delivered</option>
+    </select>
+  </div>
+
+  <div id="par" style="background-color: lightskyblue;
+    border: 4px solid orangered;"></div>
+
+  <script>
+    function submitForm(e) {
+      e.preventDefault(); // Prevent form reload
+
+      const name = document.getElementById("name").value;
+
+      // Show order tracking UI
+      document.getElementById("par").innerHTML = `
+      <div id="pdfContent">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm px-4">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <img src="logo.jpg" alt="Logo" width="40" height="40" class="rounded-circle me-2" style="border-radius: 50%;
+    margin: 5px;">
+     
+    </a>
+     <span class="fw-bold">Avni Book Publications</span>
+     <hr>
+    
+   
+  </div>
+</nav>
+
+        <div class="container" style="backround:black;">
+            <h6 class ="name">Order Summary</h6>
+            <p><strong>Total : Rs.</strong> ${document.getElementById('paymentt').value} -/</p>
+            <p><strong>Order ID :</strong> ${document.getElementById('orderId').value}</p>
+          <hr>
+
+            <h6 class ="name">Customer Details</h6>
+            <p><strong>Namme : </strong> ${name}</p>
+            <p><strong>Address : </strong>${document.getElementById('address').value}</p>
+          <hr>
+          <h6 class = "name">Status<h6>
+          <div class="card card-timeline" style="background-color:lightskyblue;">
+            <ul class="bs4-order-tracking" id="orderSteps">
+              <li class="step active"><i class="fas fa-user"></i>Order Placed</li>
+              <li class="step"><i class="fas fa-credit-card"></i>Waiting for Payment</li>
+              <li class="step"><i class="fas fa-truck"></i>Out for Delivery</li>
+              <li class="step"><i class="fas fa-birthday-cake"></i>Delivered</li>
+            </ul>
+            <div class="order-status" id="statusText">Order Placed. Your order has been received.</div>
+          </div>
+          
+        </div>
+        <hr>
+        <p>Mesaage the seller to get help with your order.</p>
+        </div><br><br>
+        <button onclick="downloadPDF()">Download PDF</button>
+      `;
+
+      document.getElementById("statusContainer").style.display = "flex";
+
+      // Re-bind tracking functionality
+      bindTrackingScript();
+    }
+
+    function bindTrackingScript() {
+  const steps = document.querySelectorAll("#orderSteps .step");
+  const statusText = document.getElementById("statusText");
+  const select = document.getElementById("statusSelect");
+
+  const statusMessages = [
+    "Order Placed. Your order has been received.",
+    "Waiting for Payment. Awaiting confirmation.",
+    "Out for Delivery. Hang tight!",
+    "Delivered. Enjoy your order!"
+  ];
+
+  // Remove old event listeners by cloning the select
+  const newSelect = select.cloneNode(true);
+  select.parentNode.replaceChild(newSelect, select);
+
+  newSelect.addEventListener("change", () => {
+    const selected = parseInt(newSelect.value);
+
+    steps.forEach((step, index) => {
+      if (index <= selected) {
+        step.classList.add("active");
+      } else {
+        step.classList.remove("active");
       }
-      function createOrder1() {
-        // Logic to create an order
-        document.getElementById("par").innerHTML = `
-             <form>      
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Enter Name</label>
-                    <input type="text" class="form-control" id="name" >
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Enter Address</label>
-                    <textarea class="form-control" id="address" rows="3"></textarea>
-                </div>
-                 <div class="mb-3">
-                    <label for="status" class="form-label">Payment Status</label><br>
-                    <input type="radio" id="paid" name="pay" value=1>
-                    <label for="age1">paid</label><br>
-                    <input type="radio" id="unpaid" name="pay" value=2>
-                    <label for="age2">UnPaid</label><br>
-                </div>
-                <button class="btn btn-primary" onclick="createSlip()">Create Slip</button>
-              </form>
+    });
 
-              `;
-      }
+    // Now statusText will exist because this is only called after DOM update
+    statusText.textContent = statusMessages[selected];
+  });
+}
 
-      function createSlip() {
-        let name = document.getElementById("name").value;
-        let address = document.getElementById("address").value;
+    function downloadPDF() {
+      const element = document.getElementById('par');
+      html2pdf().from(element).save('form-details.pdf');
+    }
 
-        let status = document.getElementsByName("pay");
-        for (let i = 0; i < status.length; i++) {
-          if (status[i].checked) {
-            var paid = status[i].value;
-          }
-        }
+  </script>
 
-        document.getElementById("par").innerHTML = paid;
-      }
-    </script>
-  </body>
+</body>
 </html>
