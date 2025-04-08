@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Avni Publication</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+      crossorigin="anonymous"
+    />
+    <style>
+      .dropbtn {
+        background-color: #4caf50;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+      }
+
+      .dropbtn:hover,
+      .dropbtn:focus {
+        background-color: #3e8e41;
+      }
+
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 400px;
+        overflow: auto;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      }
+
+      .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+
+      .dropdown-content a:hover {
+        background-color: #f1f1f1;
+      }
+
+      .show {
+        display: block;
+      }
+
+      .bs4-order-tracking {
+        margin-bottom: 30px;
+        overflow: hidden;
+        color: #878788;
+        padding-left: 0px;
+        margin-top: 30px;
+      }
+      .bs4-order-tracking li {
+        list-style-type: none;
+        font-size: 13px;
+        width: 25%;
+        float: left;
+        position: relative;
+        font-weight: 400;
+        color: #878788;
+        text-align: center;
+      }
+      .bs4-order-tracking li:first-child:before {
+        margin-left: 15px !important;
+        padding-left: 11px !important;
+        text-align: left !important;
+      }
+      .bs4-order-tracking li:last-child:before {
+        margin-right: 5px !important;
+        padding-right: 11px !important;
+        text-align: right !important;
+      }
+      .bs4-order-tracking li > div {
+        color: #fff;
+        width: 29px;
+        text-align: center;
+        line-height: 29px;
+        display: block;
+        font-size: 12px;
+        background: #878788;
+        border-radius: 50%;
+        margin: auto;
+      }
+      .bs4-order-tracking li:after {
+        content: "";
+        width: 150%;
+        height: 2px;
+        background: #878788;
+        position: absolute;
+        left: 0%;
+        right: 0%;
+        top: 15px;
+        z-index: -1;
+      }
+      .bs4-order-tracking li:first-child:after {
+        left: 50%;
+      }
+      .bs4-order-tracking li:last-child:after {
+        left: 0% !important;
+        width: 0% !important;
+      }
+      .bs4-order-tracking li.active {
+        font-weight: bold;
+        color: #dc3545;
+      }
+      .bs4-order-tracking li.active > div {
+        background: #dc3545;
+      }
+      .bs4-order-tracking li.active:after {
+        background: #dc3545;
+      }
+      .card-timeline {
+        background-color: #fff;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>welcome to avni Publication</h2>
+      <div class="container">
+        <button type="button" class="btn btn-primary" onclick="createOrder1()">
+          Create Order
+        </button>
+        <button type="button" class="btn btn-primary" onclick="createOrder()">
+          Genrate Id
+        </button>
+      </div>
+      <p id="par"></p>
+    </div>
+
+    <div class="card card-timeline px-2 border-none">
+      <ul class="bs4-order-tracking">
+        <li class="step active">
+          <div><i class="fas fa-user"></i></div>
+          Order Placed
+        </li>
+        <li class="step active">
+          <div><i class="fas fa-bread-slice"></i></div>
+          In transit
+        </li>
+        <li class="step">
+          <div><i class="fas fa-truck"></i></div>
+          Out for delivery
+        </li>
+        <li class="step">
+          <div><i class="fas fa-birthday-cake"></i></div>
+          Delivered
+        </li>
+      </ul>
+      <h5 class="text-center">
+        <b>In transit</b>. The order has been shipped!
+      </h5>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.min.js"
+      integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      function createOrder() {
+        // Logic to create an order
+        document.getElementById("par").innerHTML =
+          "order genrte " + "<h2>hello</h2>";
+      }
+      function createOrder1() {
+        // Logic to create an order
+        document.getElementById("par").innerHTML = `
+             <form>      
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Enter Name</label>
+                    <input type="text" class="form-control" id="name" >
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Enter Address</label>
+                    <textarea class="form-control" id="address" rows="3"></textarea>
+                </div>
+                 <div class="mb-3">
+                    <label for="status" class="form-label">Payment Status</label><br>
+                    <input type="radio" id="paid" name="pay" value=1>
+                    <label for="age1">paid</label><br>
+                    <input type="radio" id="unpaid" name="pay" value=2>
+                    <label for="age2">UnPaid</label><br>
+                </div>
+                <button class="btn btn-primary" onclick="createSlip()">Create Slip</button>
+              </form>
+
+              `;
+      }
+
+      function createSlip() {
+        let name = document.getElementById("name").value;
+        let address = document.getElementById("address").value;
+
+        let status = document.getElementsByName("pay");
+        for (let i = 0; i < status.length; i++) {
+          if (status[i].checked) {
+            var paid = status[i].value;
+          }
+        }
+
+        document.getElementById("par").innerHTML = paid;
+      }
+    </script>
+  </body>
+</html>
